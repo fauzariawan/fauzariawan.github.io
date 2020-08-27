@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css" type="text/css">
+  <title>Document</title>
+</head>
+
+<body>
+  <center>
+    <h1 style="color: white;"> SISTEM ANTRIAN </h1>
+  </center>
+  <div class="pembungkus">
+    <div id="daftarAntrian" class="daftarAntrian">
+      <table>
+        <tr>
+          <td><input type="text" id="nama" class="inputPendaftaran" placeholder="Nama Anda"> </td>
+        </tr>
+        <tr>
+          <td><input type="text" id="nohp" class="inputPendaftaran" placeholder="Nomor HP" maxlength="12"></td>
+        </tr>
+        <tr>
+          <td><input type="text" id="kota" class="inputPendaftaran" placeholder="Kota Anda"></td>
+        </tr>
+      </table>
+      <input id="btnAmbilAntrian" type="submit" onclick="ambilNoAntrian()" value="Ambil Nomor Antrian">
+
+      <div id="nomoranda">
+        <p id="nomorAntrian">0</p>
+        <P id="namaYangAntri"></P>
+      </div>
+
+      <div>
+        <input id="resetNoAntrian" type="submit" onclick="resetNoAntrian()" value="Reset No Antrian">
+      </div>
+    </div>
+
+    <div class="prosesAntrian">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="position:absolute">
+          <h2><u>Daftar Antrian</u></h2>
+        </div>
+        <div id="namaNamaYangAntri" style="width: 300px; height: 470px; background-color: aqua;">
+          <!-- <h1> Daftar Antrian </h1> -->
+        </div>
+      </div>
+
+      <div id="panggilAntrian" style="width: 300px; height: 500px; background-color: rgb(255, 251, 0)">
+        <input id="btnPanggilAntrian" type="submit" onclick="panggilAntrian()" value="Panggil Antrian">
+      </div>
+
+      <div id="bungkusNomorYangSedangDiLayani" style="width: 300px; height: 500px; background-color: rgb(166, 255, 0)">
+        <span style="font-size: 20px;"> No. Yang Sedang Dilayani </span>
+        <p id="nomorNya"></p>
+        <p id="namaYangSedangDiLayani"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var dataAntrian = [];
+    function ambilNoAntrian() {
+      document.getElementById("namaNamaYangAntri").innerHTML = '';
+      if (nama.value === '') {
+        alert('nama masih kosong')
+      } else if (nohp.value === '') {
+        alert('NO HP masih kosong')
+      } else if (kota.value === '') {
+        alert('Kota Masih Kosong')
+      } else {
+        let nama = document.getElementById("nama");
+        let noHp = document.getElementById("nohp");
+        let kota = document.getElementById("kota");
+        let nilaiawal = document.getElementById("nomorAntrian");
+        let angka = Number(nilaiawal.innerText);
+        let namaYangAntri = document.getElementById('namaYangAntri')
+        angka++
+        nilaiawal.innerText = angka;
+        namaYangAntri.innerText = nama.value;
+        dataAntrian.push(`${angka}. ${nama.value}`)
+        for (let i = 0; i < dataAntrian.length; i++) {
+          let tempatNama = document.createElement('p');
+          let nama = document.createTextNode(dataAntrian[i])
+          tempatNama.appendChild(nama)
+          namaNamaYangAntri.appendChild(tempatNama)
+        }
+        nama.value = '';
+        noHp.value = '';
+        kota.value = '';
+        console.log(dataAntrian)
+
+      }
+    }
+
+    function resetNoAntrian() {
+      document.getElementById("nomorAntrian").innerText = 0;
+      document.getElementById('namaYangAntri').innerText = '';
+      dataAntrian = [];
+      console.log(dataAntrian);
+      document.getElementById("nomorNya").innerHTML = '';
+      document.getElementById("namaYangSedangDiLayani").innerHTML = '';
+    }
+
+    function panggilAntrian() {
+      if (dataAntrian.length === 0) {
+        alert("ANTRIAN SUDAH HABIS");
+      } else {
+        document.getElementById("namaNamaYangAntri").innerHTML = '';
+        let nomorYangSedangDiLayani = dataAntrian.shift();
+        let nomorNya = nomorYangSedangDiLayani[0];
+        let temp = '';
+        for (let i = 3; i < nomorYangSedangDiLayani.length; i++) {
+          temp += nomorYangSedangDiLayani[i];
+        }
+        document.getElementById("namaYangSedangDiLayani").innerText = temp;
+        document.getElementById("nomorNya").innerText = nomorNya;
+        for (let i = 0; i < dataAntrian.length; i++) {
+          let tempatNama = document.createElement('p');
+          let nama = document.createTextNode(dataAntrian[i])
+          tempatNama.appendChild(nama)
+          namaNamaYangAntri.appendChild(tempatNama)
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
