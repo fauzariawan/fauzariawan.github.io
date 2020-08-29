@@ -9,9 +9,24 @@
 </head>
 
 <body>
-  <center>
-    <h1 style="color: white;"> SISTEM ANTRIAN </h1>
-  </center>
+  <audio id="antrianke" src="./sound/antrian ke.mp3"></audio>
+  <audio id="belas" src="./sound/belas.mp3"></audio>
+  <audio id="puluh" href="./sound/puluh.mp3"></audio>
+  <audio id="loketSatu" src="./sound/loketsatu.mp3"></audio>
+  <audio id="loketDua" src="./sound/loketdua.mp3"></audio>
+  <audio id="satu" src="./sound/satu.mp3"></audio>
+  <audio id="dua" src="./sound/dua.mp3"></audio>
+  <audio id="tiga" src="./sound/tiga.mp3"></audio>
+  <audio id="empat" src="./sound/empat.mp3"></audio>
+  <audio id="lima" src="./sound/lima.mp3"></audio>
+  <audio id="enam" src="./sound/enam.mp3"></audio>
+  <audio id="tujuh" src="./sound/tujuh.mp3"></audio>
+  <audio id="delapan" src="./sound/delapan.mp3"></audio>
+  <audio id="sembilan" src="./sound/sembilan.mp3"></audio>
+  <audio id="sepuluh" src="./sound/sepuluh.mp3"></audio>
+  <audio id="sebelas" src="./sound/sebelas.mp3"></audio>
+
+  <div class="judul"> SISTEM ANTRIAN </div>
   <div class="pembungkus">
     <div id="daftarAntrian" class="daftarAntrian">
       <table>
@@ -38,93 +53,56 @@
     </div>
 
     <div class="prosesAntrian">
-      <div style="display: flex; flex-direction: column; align-items: center;">
-        <div style="position:absolute">
-          <h2><u>Daftar Antrian</u></h2>
+      <div style="display: flex; flex-direction: column; align-items: center; margin: 0 10px 0 0;">
+        <div style="
+          position: absolute; 
+          display: flex;
+          justify-content: center;
+          background-color: #fa7d09; 
+          width: 230px; 
+          border-bottom: 3px solid rgb(255, 255, 255);
+          margin: 0; 
+          padding: 0;">
+          <p
+            style="font-size: 25px; margin: 0px; padding: 0; padding: 5px 0 0 0; letter-spacing: 1px; color: rgb(255, 255, 255);">
+            DAFTAR
+            ANTRIAN</p>
         </div>
-        <div id="namaNamaYangAntri" style="width: 300px; height: 470px; background-color: aqua;">
+        <div id="namaNamaYangAntri" class="borderProsesAntrian"
+          style="width: 250px; height: 350px; background-color: #fa7d09;">
           <!-- <h1> Daftar Antrian </h1> -->
         </div>
+        <div id="totalAntrian" class="borderProsesAntrian"
+          style="width: 250px; display: flex; height: 120px; background-color: aqua; margin-top: 5px;">
+          <p class="displayTotalAntrian" style="font-size: 30px; text-align: center; padding-top: 20px;"> Total Antrian
+          </p>
+          <p id="nilaiTotalAntrian" class="displayTotalAntrian" style="font-size: 90px; text-align: center;">0</p>
+        </div>
       </div>
 
-      <div id="panggilAntrian" style="width: 300px; height: 500px; background-color: rgb(255, 251, 0)">
-        <input id="btnPanggilAntrian" type="submit" onclick="panggilAntrian()" value="Panggil Antrian">
+      <div id="panggilAntrian" class="borderProsesAntrian"
+        style="width: 250px; height: 500px; background-color: rgb(255, 251, 0); margin-right: 10px;">
+        <h2>Panggil Antrian</h2>
+        <!-- <input id="btnPanggilAntrian" type="submit" onclick="panggilAntrian()" value="Panggil Antrian"> -->
+        <input id="loketSatu" class="loket" type="submit" onclick="panggilAntrianLoketSatu()" value="LOKET 1">
+        <input id="loketDua" class="loket" type="submit" onclick="panggilAntrianLoketDua()" value="LOKET 2">
       </div>
 
-      <div id="bungkusNomorYangSedangDiLayani" style="width: 300px; height: 500px; background-color: rgb(166, 255, 0)">
-        <span style="font-size: 20px;"> No. Yang Sedang Dilayani </span>
-        <p id="nomorNya"></p>
-        <p id="namaYangSedangDiLayani"></p>
+      <div class="bungkusNomorYangSedangDiLayani borderProsesAntrian"
+        style="width: 250px; height: 500px; background-color: rgb(166, 255, 0)">
+        <span style="font-size: 20px;"> LOKET 1 </span>
+        <p class="displayNomorYangSedangDILayani" id="nomorDiLoketSatu"></p>
+        <p class="displayNamaYangSedangDiLayani" id="namaYangSedangDiLayaniDiLoketSatu" style="text-align: center;"></p>
+      </div>
+      <div class="bungkusNomorYangSedangDiLayani borderProsesAntrian"
+        style="width: 250px; height: 500px; background-color: rgb(166, 255, 0)">
+        <span style="font-size: 20px;"> LOKET 2 </span>
+        <p class="displayNomorYangSedangDILayani" id="nomorDiLoketDua"></p>
+        <p class="displayNamaYangSedangDiLayani" id="namaYangSedangDiLayaniDiLoketDua" style="text-align: center;"></p>
       </div>
     </div>
   </div>
-
-  <script>
-    var dataAntrian = [];
-    function ambilNoAntrian() {
-      document.getElementById("namaNamaYangAntri").innerHTML = '';
-      if (nama.value === '') {
-        alert('nama masih kosong')
-      } else if (nohp.value === '') {
-        alert('NO HP masih kosong')
-      } else if (kota.value === '') {
-        alert('Kota Masih Kosong')
-      } else {
-        let nama = document.getElementById("nama");
-        let noHp = document.getElementById("nohp");
-        let kota = document.getElementById("kota");
-        let nilaiawal = document.getElementById("nomorAntrian");
-        let angka = Number(nilaiawal.innerText);
-        let namaYangAntri = document.getElementById('namaYangAntri')
-        angka++
-        nilaiawal.innerText = angka;
-        namaYangAntri.innerText = nama.value;
-        dataAntrian.push(`${angka}. ${nama.value}`)
-        for (let i = 0; i < dataAntrian.length; i++) {
-          let tempatNama = document.createElement('p');
-          let nama = document.createTextNode(dataAntrian[i])
-          tempatNama.appendChild(nama)
-          namaNamaYangAntri.appendChild(tempatNama)
-        }
-        nama.value = '';
-        noHp.value = '';
-        kota.value = '';
-        console.log(dataAntrian)
-
-      }
-    }
-
-    function resetNoAntrian() {
-      document.getElementById("nomorAntrian").innerText = 0;
-      document.getElementById('namaYangAntri').innerText = '';
-      dataAntrian = [];
-      console.log(dataAntrian);
-      document.getElementById("nomorNya").innerHTML = '';
-      document.getElementById("namaYangSedangDiLayani").innerHTML = '';
-    }
-
-    function panggilAntrian() {
-      if (dataAntrian.length === 0) {
-        alert("ANTRIAN SUDAH HABIS");
-      } else {
-        document.getElementById("namaNamaYangAntri").innerHTML = '';
-        let nomorYangSedangDiLayani = dataAntrian.shift();
-        let nomorNya = nomorYangSedangDiLayani[0];
-        let temp = '';
-        for (let i = 3; i < nomorYangSedangDiLayani.length; i++) {
-          temp += nomorYangSedangDiLayani[i];
-        }
-        document.getElementById("namaYangSedangDiLayani").innerText = temp;
-        document.getElementById("nomorNya").innerText = nomorNya;
-        for (let i = 0; i < dataAntrian.length; i++) {
-          let tempatNama = document.createElement('p');
-          let nama = document.createTextNode(dataAntrian[i])
-          tempatNama.appendChild(nama)
-          namaNamaYangAntri.appendChild(tempatNama)
-        }
-      }
-    }
-  </script>
+  <script src="./script.js"></script>
 </body>
 
 </html>
